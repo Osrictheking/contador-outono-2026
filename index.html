@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#22c55e">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contagem regressiva para o outono de 2026</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      color: #f1f5f9;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      text-align: center;
+      background: #111827;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    h1 {
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      color: #22c55e;
+    }
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      font-size: 1.2rem;
+    }
+    .unit {
+      text-align: center;
+    }
+    .number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #22c55e;
+    }
+    .label {
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Contagem regressiva para o outono de 2026</h1>
+    <div class="countdown">
+      <div class="unit">
+        <div class="number" id="days">--</div>
+        <div class="label">Dias</div>
+      </div>
+      <div class="unit">
+        <div class="number" id="hours">--</div>
+        <div class="label">Horas</div>
+      </div>
+      <div class="unit">
+        <div class="number" id="minutes">--</div>
+        <div class="label">Minutos</div>
+      </div>
+      <div class="unit">
+        <div class="number" id="seconds">--</div>
+        <div class="label">Segundos</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const targetDate = new Date(2026, 2, 20, 0, 0, 0); // 20 de março de 2026
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        document.querySelector(".container").innerHTML = "<h1>O outono de 2026 já começou 🍂</h1>";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = hours;
+      document.getElementById("minutes").textContent = minutes;
+      document.getElementById("seconds").textContent = seconds;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js")
+      .then(() => console.log("Service Worker registrado!"));
+  }
+</script>
+</body>
+</html>
